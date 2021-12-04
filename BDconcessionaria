@@ -1,0 +1,43 @@
+DROP DATABASE if exists BDconcessionaria;
+CREATE DATABASE concessionaria;
+use concessionaria;
+
+create table Estoque(
+idEstoque INT NOT NULL primary key,
+QuantidadeDisponivel varchar(45),
+CarrosTesla varchar(45),
+CarrosFord varchar(45),
+CarrosVolkswagen varchar(45)
+
+);
+
+create table Veiculo(
+IdVeiculo INT NOT NULL primary key,
+NomeCarro  varchar(45),
+MarcaCarro varchar(45),
+DataFabricacao varchar(45),
+PaisOrigem  varchar(45),
+Preco varchar(45),
+Cliente_idCliente int,
+constraint fk_Cliente FOREIGN KEY(Cliente_idCliente)
+References Cliente (idCliente) on update cascade
+
+);
+create table Cliente(
+idCliente INT NOT NULL primary key,
+NomeCliente  varchar(45),
+CPF varchar(45),
+VeiculoAdquirido varchar(45),
+ValorCompra varchar(45)
+);
+
+Create table Estoque_has_Veiculo(
+Estoque_id int,
+Veiculo_id int,
+Primary key(Estoque_id,Veiculo_id),
+constraint fk_Estoque FOREIGN KEY (Estoque_id) References Estoque(idEstoque),
+constraint fk_Veiculo FOREIGN KEY (Veiculo_id) References Veiculo(idVeiculo)
+);
+
+
+
